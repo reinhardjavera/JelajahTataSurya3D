@@ -1,0 +1,103 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background-color: #03050a;
+  color: #f8fafc;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  overflow-x: hidden;
+}
+
+.font-mono {
+  letter-spacing: 0.08em;
+}
+
+/* Fixed 3D WebGL Background */
+#webgl-container {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 0;
+  pointer-events: none;
+}
+
+body.explore-active #webgl-container {
+  pointer-events: auto;
+  cursor: grab;
+}
+
+body.explore-active #webgl-container:active {
+  cursor: grabbing;
+}
+
+/* Glassmorphism Editorial Cards */
+.glass-card {
+  background: linear-gradient(145deg, rgba(13, 19, 36, 0.78) 0%, rgba(6, 9, 18, 0.85) 100%);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1px solid rgba(255, 255, 255, 0.11);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.75), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+}
+
+.glass-pill {
+  background: rgba(10, 15, 28, 0.72);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #03050a;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.35);
+}
+
+/* Reveal Animation for Cards */
+.planet-card {
+  opacity: 0.25;
+  transform: translateY(28px);
+  transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1), transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.planet-card.is-active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Hide editorial overlay completely when user activates 360 free inspect mode */
+body.explore-active #scroll-content {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.35s ease, visibility 0.35s ease;
+}
+#scroll-content {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.35s ease, visibility 0.35s ease;
+}
+
+/* Subtle pulse animation for scroll indicator */
+@keyframes floatSlow {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(7px); }
+}
+.animate-float {
+  animation: floatSlow 2.4s ease-in-out infinite;
+}
