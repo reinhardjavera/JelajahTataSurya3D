@@ -78,12 +78,30 @@ export const ThreeCanvas: React.FC<ThreeCanvasProps> = ({
     }
 
     if (index === 1) {
-      // Matahari
+      // Matahari (Kartu di Kiri -> Matahari tampil di Kanan dengan jarak napas lega)
       return {
-        pos: new THREE.Vector3(isMobile ? 0 : -11, isMobile ? 5 : 2, isMobile ? 34 : 29),
-        target: new THREE.Vector3(isMobile ? 0 : -6.5, isMobile ? -2.5 : 0, 0),
+        pos: new THREE.Vector3(isMobile ? 0 : -14.5, isMobile ? 5 : 2.5, isMobile ? 40 : 35),
+        target: new THREE.Vector3(isMobile ? 0 : -8.5, isMobile ? -2.5 : 0, 0),
         focusCenter: new THREE.Vector3(0, 0, 0),
-        inspectDist: 28,
+        inspectDist: 32,
+      };
+    }
+
+    if (index === 2) {
+      // Merkurius (Kartu di Kanan -> Merkurius di Kiri dengan jarak lega & proporsi presisi)
+      const stop = CELESTIAL_STOPS[index];
+      const body = bodiesRef.current[stop.bodyKey];
+      const c = body ? body.group.position.clone() : new THREE.Vector3(24, 1.5, -14);
+      const r = body ? body.radius : 1.45;
+      const dist = isMobile ? 9.6 : 8.6;
+      const sideOffset = isMobile ? 0 : 4.1;
+      const yOffset = isMobile ? -r * 0.85 : 0;
+
+      return {
+        pos: new THREE.Vector3(c.x + sideOffset, c.y + r * 0.45, c.z + dist),
+        target: new THREE.Vector3(c.x + sideOffset, c.y + yOffset, c.z),
+        focusCenter: c,
+        inspectDist: 8.5,
       };
     }
 
@@ -93,8 +111,9 @@ export const ThreeCanvas: React.FC<ThreeCanvasProps> = ({
     const r = body ? body.radius : 3;
 
     const cardOnRight = index % 2 === 0;
-    const dist = Math.max(r * (isMobile ? 5.2 : 3.9), 7.2);
-    const sideOffset = isMobile ? 0 : cardOnRight ? r * 1.45 : -r * 1.45;
+    const dist = Math.max(r * (isMobile ? 5.2 : 3.9), 7.5);
+    const offsetMag = Math.max(r * 1.45, 3.6);
+    const sideOffset = isMobile ? 0 : cardOnRight ? offsetMag : -offsetMag;
     const yOffset = isMobile ? -r * 0.85 : 0;
 
     return {

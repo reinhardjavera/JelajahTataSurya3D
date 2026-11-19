@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <defs>
+    <!-- Background Gradient -->
+    <radialGradient id="bgGrad" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#0e172e"/>
+      <stop offset="100%" stop-color="#03050a"/>
+    </radialGradient>
+    <!-- Nova Core Glow -->
+    <radialGradient id="coreGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#fffbeb"/>
+      <stop offset="35%" stop-color="#fbbf24"/>
+      <stop offset="75%" stop-color="#f97316"/>
+      <stop offset="100%" stop-color="#ea580c" stop-opacity="0.8"/>
+    </radialGradient>
+    <!-- Halo Gradient -->
+    <radialGradient id="halo" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#fbbf24" stop-opacity="0.6"/>
+      <stop offset="70%" stop-color="#f97316" stop-opacity="0.15"/>
+      <stop offset="100%" stop-color="#03050a" stop-opacity="0"/>
+    </radialGradient>
+    <!-- Ring Gradient -->
+    <linearGradient id="ringGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.9"/>
+      <stop offset="50%" stop-color="#fbbf24" stop-opacity="0.85"/>
+      <stop offset="100%" stop-color="#f43f5e" stop-opacity="0.3"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Dark Space Base with Subtle Border -->
+  <rect width="64" height="64" rx="16" fill="url(#bgGrad)"/>
+  <rect width="64" height="64" rx="16" fill="none" stroke="#fbbf24" stroke-opacity="0.35" stroke-width="1.5"/>
+
+  <!-- Outer Cosmic Glow -->
+  <circle cx="32" cy="32" r="24" fill="url(#halo)"/>
+
+  <!-- Orbital Ring Behind Core -->
+  <ellipse cx="32" cy="32" rx="22" ry="7.5" transform="rotate(-30 32 32)" fill="none" stroke="url(#ringGrad)" stroke-width="2.2" stroke-dasharray="72 40"/>
+
+  <!-- Nova Planet/Core Body -->
+  <circle cx="32" cy="32" r="11" fill="url(#coreGlow)"/>
+
+  <!-- Orbital Ring In Front of Core -->
+  <ellipse cx="32" cy="32" rx="22" ry="7.5" transform="rotate(-30 32 32)" fill="none" stroke="url(#ringGrad)" stroke-width="2.2" stroke-dasharray="0 65 50 0"/>
+
+  <!-- Sparkling Orbiting Moon/Satellite -->
+  <circle cx="48" cy="23" r="2.8" fill="#38bdf8"/>
+  <circle cx="48" cy="23" r="4.5" fill="#38bdf8" fill-opacity="0.4"/>
+
+  <!-- 4-point Flare Sparkle at Center-Top -->
+  <path d="M 32 15 Q 32 20 37 20 Q 32 20 32 25 Q 32 20 27 20 Q 32 20 32 15 Z" fill="#ffffff" opacity="0.9"/>
+</svg>

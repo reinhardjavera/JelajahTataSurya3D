@@ -25,7 +25,7 @@ export const Header: React.FC<HeaderProps> = ({
       >
         <span className="w-2.5 h-2.5 rounded-full bg-amber-400 shadow-[0_0_12px_#fbbf24]"></span>
         <span className="font-display font-bold tracking-wider text-sm sm:text-base text-white">
-          KOSMOS<span className="text-amber-400">.3D</span>
+          ASTRO<span className="text-amber-400">NOVA</span>
         </span>
       </a>
 

@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>KOSMOS — Eksplorasi Tata Surya 3D Scrollytelling</title>
+  <title>ASTRONOVA — Eksplorasi Tata Surya 3D</title>
+  <link rel="icon" type="image/svg+xml" href="./public/favicon.svg" />
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- Google Fonts: Sora & Plus Jakarta Sans (Clean, Balanced & Editorial Typography) -->
@@ -143,7 +144,7 @@
     <!-- Brand -->
     <a href="#section-overview" class="pointer-events-auto glass-pill px-4 py-2 rounded-full flex items-center gap-2.5 hover:border-white/25 transition">
       <span class="w-2.5 h-2.5 rounded-full bg-amber-400 shadow-[0_0_12px_#fbbf24]"></span>
-      <span class="font-display font-bold tracking-wider text-sm sm:text-base text-white">KOSMOS<span class="text-amber-400">.3D</span></span>
+      <span class="font-display font-bold tracking-wider text-sm sm:text-base text-white">ASTRO<span class="text-amber-400">NOVA</span></span>
     </a>
 
     <!-- Center HUD Status -->
@@ -1082,12 +1083,30 @@
       }
 
       if (index === 1) {
-        // Matahari (Kartu di Kiri -> Matahari tampil di Kanan)
+        // Matahari (Kartu di Kiri -> Matahari tampil di Kanan dengan jarak napas lega)
         return {
-          pos: new THREE.Vector3(isMobile ? 0 : -11, isMobile ? 5 : 2, isMobile ? 34 : 29),
-          target: new THREE.Vector3(isMobile ? 0 : -6.5, isMobile ? -2.5 : 0, 0),
+          pos: new THREE.Vector3(isMobile ? 0 : -14.5, isMobile ? 5 : 2.5, isMobile ? 40 : 35),
+          target: new THREE.Vector3(isMobile ? 0 : -8.5, isMobile ? -2.5 : 0, 0),
           focusCenter: new THREE.Vector3(0, 0, 0),
-          inspectDist: 28,
+          inspectDist: 32,
+        };
+      }
+
+      if (index === 2) {
+        // Merkurius (Kartu di Kanan -> Merkurius di Kiri dengan jarak lega & proporsi presisi)
+        const stop = CELESTIAL_STOPS[index];
+        const body = bodies[stop.bodyKey];
+        const c = body.group.position.clone();
+        const r = body.radius;
+        const dist = isMobile ? 9.6 : 8.6;
+        const sideOffset = isMobile ? 0 : 4.1;
+        const yOffset = isMobile ? -r * 0.85 : 0;
+
+        return {
+          pos: new THREE.Vector3(c.x + sideOffset, c.y + r * 0.45, c.z + dist),
+          target: new THREE.Vector3(c.x + sideOffset, c.y + yOffset, c.z),
+          focusCenter: c,
+          inspectDist: 8.5,
         };
       }
 
@@ -1098,8 +1117,9 @@
 
       // Kartu berselang-seling: index genap kartu di Kanan (planet di Kiri), index ganjil kartu di Kiri (planet di Kanan)
       const cardOnRight = index % 2 === 0;
-      const dist = Math.max(r * (isMobile ? 5.2 : 3.9), 7.2);
-      const sideOffset = isMobile ? 0 : (cardOnRight ? r * 1.45 : -r * 1.45);
+      const dist = Math.max(r * (isMobile ? 5.2 : 3.9), 7.5);
+      const offsetMag = Math.max(r * 1.45, 3.6);
+      const sideOffset = isMobile ? 0 : (cardOnRight ? offsetMag : -offsetMag);
       const yOffset = isMobile ? -r * 0.85 : 0;
 
       return {

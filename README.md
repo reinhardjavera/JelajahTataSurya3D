@@ -1,4 +1,4 @@
-# 🌌 KOSMOS — Eksplorasi Tata Surya 3D Scrollytelling
+# 🌌 ASTRONOVA — Eksplorasi Tata Surya 3D Scrollytelling
 
 Aplikasi visualisasi 3D interaktif Tata Surya dengan konsep **Scrollytelling sinematik** dan **Mode Inspeksi Bebas 360°**, kini direfaktor ke dalam modern tech stack: **React 18 + TypeScript + Vite + Tailwind CSS + Three.js**.
 
