@@ -80,8 +80,8 @@ export const ThreeCanvas: React.FC<ThreeCanvasProps> = ({
     if (index === 1) {
       // Matahari (Kartu di Kiri -> Matahari di Kanan dengan jarak napas lega)
       return {
-        pos: new THREE.Vector3(isMobile ? 0 : -14.5, isMobile ? 5 : 2.5, isMobile ? 40 : 35),
-        target: new THREE.Vector3(isMobile ? 0 : -8.5, isMobile ? -2.5 : 0, 0),
+        pos: new THREE.Vector3(isMobile ? 0 : -11.0, isMobile ? 5 : 2.5, isMobile ? 40 : 44.0),
+        target: new THREE.Vector3(isMobile ? 0 : -10.9, isMobile ? -2.5 : 0, 0),
         focusCenter: new THREE.Vector3(0, 0, 0),
         inspectDist: 32,
       };
@@ -94,53 +94,54 @@ export const ThreeCanvas: React.FC<ThreeCanvasProps> = ({
 
     // Kalibrasi presisi jarak kamera (dist), offset posisi (posOffset) dan target (tgtOffset)
     // agar setiap planet:
-    // 1) Berada di tengah ruang pandang yang nyaman (jarak lega ~120-180px dari kotak informasi)
-    // 2) Aman dan berjarak lega dari navbar/progress bar di kanan
-    // 3) Bulat sempurna (rasio W/H ~ 1.01, tanpa distorsi gepeng/oval)
+    // 1) Berada di 2/3 area layar yang bebas (~33% untuk kartu di kanan, ~66% untuk kartu di kiri)
+    // 2) Memberikan jarak lega (jarak napas ~250-350px) dari kotak informasi
+    // 3) Aman dan berjarak lega dari navbar/progress bar di kanan
+    // 4) Bulat sempurna (rasio W/H = 1.000, tanpa distorsi gepeng/oval)
     let dist = Math.max(r * 4.0, 8.5);
     let posOffset = 4.0;
     let tgtOffset = 2.0;
 
     if (index === 2) {
       // Merkurius (kartu di kanan -> Merkurius di kiri)
-      dist = isMobile ? 10.0 : 10.2;
-      posOffset = isMobile ? 0 : 4.0;
-      tgtOffset = isMobile ? 0 : 2.0;
+      dist = isMobile ? 9.5 : 8.8;
+      posOffset = isMobile ? 0 : 2.18;
+      tgtOffset = isMobile ? 0 : 2.08;
     } else if (index === 3) {
       // Venus (kartu di kiri -> Venus di kanan, seimbang di tengah area pandang kanan)
-      dist = isMobile ? 11.5 : 10.8;
-      posOffset = isMobile ? 0 : -4.2;
-      tgtOffset = isMobile ? 0 : -2.2;
+      dist = isMobile ? 12.0 : 13.8;
+      posOffset = isMobile ? 0 : -3.5;
+      tgtOffset = isMobile ? 0 : -3.35;
     } else if (index === 4) {
       // Bumi & Bulan (kartu di kanan -> Bumi di kiri dengan ruang bebas untuk orbit Bulan)
-      dist = isMobile ? 13.0 : 12.2;
-      posOffset = isMobile ? 0 : 5.4;
-      tgtOffset = isMobile ? 0 : 2.6;
+      dist = isMobile ? 12.5 : 12.0;
+      posOffset = isMobile ? 0 : 3.15;
+      tgtOffset = isMobile ? 0 : 2.95;
     } else if (index === 5) {
-      // Mars (kartu di kiri -> Mars di kanan, seimbang di 64% layar & aman dari navbar)
-      dist = isMobile ? 10.5 : 9.5;
-      posOffset = isMobile ? 0 : -3.5;
-      tgtOffset = isMobile ? 0 : -2.0;
+      // Mars (kartu di kiri -> Mars di kanan, jarak lega dari kotak & aman dari navbar)
+      dist = isMobile ? 11.0 : 13.0;
+      posOffset = isMobile ? 0 : -3.3;
+      tgtOffset = isMobile ? 0 : -3.2;
     } else if (index === 6) {
       // Jupiter (raksasa gas terbesar, kartu di kanan -> Jupiter di kiri)
-      dist = isMobile ? 29.0 : 26.0;
-      posOffset = isMobile ? 0 : 9.6;
-      tgtOffset = isMobile ? 0 : 4.6;
+      dist = isMobile ? 30.0 : 33.8;
+      posOffset = isMobile ? 0 : 8.65;
+      tgtOffset = isMobile ? 0 : 8.25;
     } else if (index === 7) {
       // Saturnus (sistem cincin lebar hingga r=12.6, kartu di kiri -> Saturnus di kanan)
-      dist = isMobile ? 32.0 : 30.0;
-      posOffset = isMobile ? 0 : -7.5;
-      tgtOffset = isMobile ? 0 : -3.8;
+      dist = isMobile ? 32.0 : 30.2;
+      posOffset = isMobile ? 0 : -7.75;
+      tgtOffset = isMobile ? 0 : -7.4;
     } else if (index === 8) {
       // Uranus (raksasa es bercincin, kartu di kanan -> Uranus di kiri)
-      dist = isMobile ? 18.0 : 16.0;
-      posOffset = isMobile ? 0 : 6.2;
-      tgtOffset = isMobile ? 0 : 3.0;
+      dist = isMobile ? 18.0 : 19.4;
+      posOffset = isMobile ? 0 : 5.0;
+      tgtOffset = isMobile ? 0 : 4.75;
     } else if (index === 9) {
       // Neptunus (planet terluar, kartu di kiri -> Neptunus di kanan)
-      dist = isMobile ? 16.5 : 14.5;
-      posOffset = isMobile ? 0 : -4.8;
-      tgtOffset = isMobile ? 0 : -2.5;
+      dist = isMobile ? 16.5 : 17.6;
+      posOffset = isMobile ? 0 : -4.58;
+      tgtOffset = isMobile ? 0 : -4.33;
     }
 
     const yOffset = isMobile ? -r * 0.85 : 0;

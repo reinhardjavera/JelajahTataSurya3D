@@ -71,16 +71,20 @@ export const SectionCard: React.FC<SectionCardProps> = ({ section, isActive, onN
   const badgeColor =
     BADGE_COLOR_MAP[section.index] || 'bg-amber-500/15 border-amber-400/30 text-amber-300';
 
+  const isRightAligned = section.align === 'right';
+
   return (
     <section
       id={section.id}
       data-index={section.index}
       className={`flex items-center ${
-        section.align === 'right' ? 'justify-end' : 'justify-start'
-      } px-5 sm:px-10 sm:pr-36 lg:px-20 lg:pr-52 ${section.minHeightClass}`}
+        isRightAligned
+          ? 'justify-end px-5 sm:pl-8 sm:pr-28 lg:pl-14 lg:pr-36'
+          : 'justify-start px-5 sm:pl-10 sm:pr-8 lg:pl-14 lg:pr-10'
+      } ${section.minHeightClass}`}
     >
       <div
-        className={`max-w-lg lg:max-w-xl w-full planet-card glass-card rounded-3xl p-7 sm:p-9 ${
+        className={`max-w-[450px] lg:max-w-[475px] w-full planet-card glass-card rounded-3xl p-7 sm:p-9 ${
           isActive ? 'is-active' : ''
         }`}
       >
