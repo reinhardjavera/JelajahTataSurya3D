@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
+import { LoadingScreen } from './components/LoadingScreen';
 import { ThreeCanvas } from './components/ThreeCanvas';
 import { Header } from './components/Header';
 import { ExploreBanner } from './components/ExploreBanner';
@@ -12,6 +13,35 @@ export const App: React.FC = () => {
   const [activeStopIndex, setActiveStopIndex] = useState(0);
   const [scrollPct, setScrollPct] = useState(0);
   const [isExploreMode, setIsExploreMode] = useState(false);
+
+  // Always reset scroll to the beginning (Overview) on page load/refresh
+  useEffect(() => {
+    if ('scrollRestoration' in history) {
+      history.scrollRestoration = 'manual';
+    }
+    if (window.location.hash) {
+      history.replaceState(null, '', window.location.pathname + window.location.search);
+    }
+    window.scrollTo(0, 0);
+
+    const handlePageShow = (e: PageTransitionEvent) => {
+      if (e.persisted) {
+        window.scrollTo(0, 0);
+      }
+    };
+
+    const handleBeforeUnload = () => {
+      window.scrollTo(0, 0);
+    };
+
+    window.addEventListener('pageshow', handlePageShow);
+    window.addEventListener('beforeunload', handleBeforeUnload);
+
+    return () => {
+      window.removeEventListener('pageshow', handlePageShow);
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+    };
+  }, []);
 
   // Sync explore-active class to body
   useEffect(() => {
@@ -69,6 +99,9 @@ export const App: React.FC = () => {
 
   return (
     <>
+      {/* Initial Page Load / Refresh Cosmic Loader */}
+      <LoadingScreen duration={1000} />
+
       {/* 3D WebGL Canvas */}
       <ThreeCanvas
         activeStopIndex={activeStopIndex}

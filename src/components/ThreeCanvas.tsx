@@ -92,53 +92,62 @@ export const ThreeCanvas: React.FC<ThreeCanvasProps> = ({
     const c = body ? body.group.position.clone() : new THREE.Vector3();
     const r = body ? body.radius : 3;
 
-    // Kartu berselang-seling: index genap kartu di Kanan (planet di Kiri), index ganjil kartu di Kiri (planet di Kanan)
-    const cardOnRight = index % 2 === 0;
-
-    // Kalibrasi jarak kamera (dist) dan offset samping (offsetMag) agar setiap planet tampil bebas & tidak tertutup kartu
+    // Kalibrasi presisi jarak kamera (dist), offset posisi (posOffset) dan target (tgtOffset)
+    // agar setiap planet:
+    // 1) Berada di tengah ruang pandang yang nyaman (jarak lega ~120-180px dari kotak informasi)
+    // 2) Aman dan berjarak lega dari navbar/progress bar di kanan
+    // 3) Bulat sempurna (rasio W/H ~ 1.01, tanpa distorsi gepeng/oval)
     let dist = Math.max(r * 4.0, 8.5);
-    let offsetMag = Math.max(r * 1.6, 4.2);
+    let posOffset = 4.0;
+    let tgtOffset = 2.0;
 
     if (index === 2) {
-      // Merkurius (planet terkecil, kartu di kanan -> Merkurius di kiri)
-      dist = isMobile ? 9.6 : 8.6;
-      offsetMag = 4.2;
+      // Merkurius (kartu di kanan -> Merkurius di kiri)
+      dist = isMobile ? 10.0 : 10.2;
+      posOffset = isMobile ? 0 : 4.0;
+      tgtOffset = isMobile ? 0 : 2.0;
     } else if (index === 3) {
-      // Venus (kartu di kiri -> Venus di kanan, seimbang di tengah kanan, aman dari navbar)
-      dist = isMobile ? 11.5 : 9.5;
-      offsetMag = 2.2;
+      // Venus (kartu di kiri -> Venus di kanan, seimbang di tengah area pandang kanan)
+      dist = isMobile ? 11.5 : 10.8;
+      posOffset = isMobile ? 0 : -4.2;
+      tgtOffset = isMobile ? 0 : -2.2;
     } else if (index === 4) {
       // Bumi & Bulan (kartu di kanan -> Bumi di kiri dengan ruang bebas untuk orbit Bulan)
-      dist = isMobile ? 13.0 : 11.4;
-      offsetMag = 5.2;
+      dist = isMobile ? 13.0 : 12.2;
+      posOffset = isMobile ? 0 : 5.4;
+      tgtOffset = isMobile ? 0 : 2.6;
     } else if (index === 5) {
-      // Mars (kartu di kiri -> Mars di kanan, seimbang & aman dari navbar)
-      dist = isMobile ? 10.5 : 8.8;
-      offsetMag = 2.2;
+      // Mars (kartu di kiri -> Mars di kanan, seimbang di 64% layar & aman dari navbar)
+      dist = isMobile ? 10.5 : 9.5;
+      posOffset = isMobile ? 0 : -3.5;
+      tgtOffset = isMobile ? 0 : -2.0;
     } else if (index === 6) {
       // Jupiter (raksasa gas terbesar, kartu di kanan -> Jupiter di kiri)
-      dist = isMobile ? 29.0 : 25.0;
-      offsetMag = 9.8;
+      dist = isMobile ? 29.0 : 26.0;
+      posOffset = isMobile ? 0 : 9.6;
+      tgtOffset = isMobile ? 0 : 4.6;
     } else if (index === 7) {
       // Saturnus (sistem cincin lebar hingga r=12.6, kartu di kiri -> Saturnus di kanan)
-      dist = isMobile ? 32.0 : 28.5;
-      offsetMag = 6.8;
+      dist = isMobile ? 32.0 : 30.0;
+      posOffset = isMobile ? 0 : -7.5;
+      tgtOffset = isMobile ? 0 : -3.8;
     } else if (index === 8) {
       // Uranus (raksasa es bercincin, kartu di kanan -> Uranus di kiri)
-      dist = isMobile ? 18.0 : 15.5;
-      offsetMag = 6.4;
+      dist = isMobile ? 18.0 : 16.0;
+      posOffset = isMobile ? 0 : 6.2;
+      tgtOffset = isMobile ? 0 : 3.0;
     } else if (index === 9) {
-      // Neptunus (planet terluar, kartu di kiri -> Neptunus di kanan aman dari navbar)
-      dist = isMobile ? 16.5 : 13.8;
-      offsetMag = 2.8;
+      // Neptunus (planet terluar, kartu di kiri -> Neptunus di kanan)
+      dist = isMobile ? 16.5 : 14.5;
+      posOffset = isMobile ? 0 : -4.8;
+      tgtOffset = isMobile ? 0 : -2.5;
     }
 
-    const sideOffset = isMobile ? 0 : cardOnRight ? offsetMag : -offsetMag;
     const yOffset = isMobile ? -r * 0.85 : 0;
 
     return {
-      pos: new THREE.Vector3(c.x + sideOffset, c.y + r * 0.45, c.z + dist),
-      target: new THREE.Vector3(c.x + sideOffset, c.y + yOffset, c.z),
+      pos: new THREE.Vector3(c.x + posOffset, c.y + r * 0.45, c.z + dist),
+      target: new THREE.Vector3(c.x + tgtOffset, c.y + yOffset, c.z),
       focusCenter: c,
       inspectDist: Math.max(r * 3.8, 8.0),
     };
