@@ -4,6 +4,7 @@ import { SectionContent } from '../types';
 interface SectionCardProps {
   section: SectionContent;
   isActive: boolean;
+  onNavigate?: (index: number) => void;
 }
 
 const BADGE_COLOR_MAP: Record<number, string> = {
@@ -18,7 +19,7 @@ const BADGE_COLOR_MAP: Record<number, string> = {
   9: 'bg-indigo-500/20 border-indigo-400/35 text-indigo-300',
 };
 
-export const SectionCard: React.FC<SectionCardProps> = ({ section, isActive }) => {
+export const SectionCard: React.FC<SectionCardProps> = ({ section, isActive, onNavigate }) => {
   const isOverview = section.index === 0;
 
   if (isOverview) {
@@ -26,7 +27,7 @@ export const SectionCard: React.FC<SectionCardProps> = ({ section, isActive }) =
       <section
         id={section.id}
         data-index={section.index}
-        className={`flex items-center px-5 sm:px-12 sm:pr-44 lg:px-20 lg:pr-52 ${section.minHeightClass}`}
+        className={`flex items-center px-5 sm:px-12 sm:pr-40 lg:px-20 lg:pr-52 ${section.minHeightClass}`}
       >
         <div
           className={`max-w-2xl planet-card glass-card rounded-3xl p-7 sm:p-10 ${
@@ -48,6 +49,12 @@ export const SectionCard: React.FC<SectionCardProps> = ({ section, isActive }) =
           <div className="flex flex-wrap items-center gap-4">
             <a
               href="#section-sun"
+              onClick={(e) => {
+                if (onNavigate) {
+                  e.preventDefault();
+                  onNavigate(1);
+                }
+              }}
               className="px-6 py-3.5 rounded-2xl bg-gradient-to-r from-amber-400 to-orange-500 text-slate-950 font-display font-bold text-sm sm:text-base hover:brightness-110 transition shadow-lg shadow-amber-500/25"
             >
               Mulai Perjalanan ↓
@@ -70,10 +77,10 @@ export const SectionCard: React.FC<SectionCardProps> = ({ section, isActive }) =
       data-index={section.index}
       className={`flex items-center ${
         section.align === 'right' ? 'justify-end' : 'justify-start'
-      } px-5 sm:px-12 sm:pr-44 lg:px-20 lg:pr-52 ${section.minHeightClass}`}
+      } px-5 sm:px-10 sm:pr-36 lg:px-20 lg:pr-52 ${section.minHeightClass}`}
     >
       <div
-        className={`max-w-xl w-full planet-card glass-card rounded-3xl p-7 sm:p-9 ${
+        className={`max-w-lg lg:max-w-xl w-full planet-card glass-card rounded-3xl p-7 sm:p-9 ${
           isActive ? 'is-active' : ''
         }`}
       >
@@ -123,7 +130,13 @@ export const SectionCard: React.FC<SectionCardProps> = ({ section, isActive }) =
             </span>
             <a
               href="#section-overview"
-              className="px-4 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-xs font-display font-semibold text-white transition"
+              onClick={(e) => {
+                if (onNavigate) {
+                  e.preventDefault();
+                  onNavigate(0);
+                }
+              }}
+              className="px-4 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-xs font-display font-semibold text-white transition cursor-pointer"
             >
               ↑ Kembali ke Awal
             </a>

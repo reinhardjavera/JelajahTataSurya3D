@@ -78,7 +78,7 @@ export const ThreeCanvas: React.FC<ThreeCanvasProps> = ({
     }
 
     if (index === 1) {
-      // Matahari (Kartu di Kiri -> Matahari tampil di Kanan dengan jarak napas lega)
+      // Matahari (Kartu di Kiri -> Matahari di Kanan dengan jarak napas lega)
       return {
         pos: new THREE.Vector3(isMobile ? 0 : -14.5, isMobile ? 5 : 2.5, isMobile ? 40 : 35),
         target: new THREE.Vector3(isMobile ? 0 : -8.5, isMobile ? -2.5 : 0, 0),
@@ -87,32 +87,52 @@ export const ThreeCanvas: React.FC<ThreeCanvasProps> = ({
       };
     }
 
-    if (index === 2) {
-      // Merkurius (Kartu di Kanan -> Merkurius di Kiri dengan jarak lega & proporsi presisi)
-      const stop = CELESTIAL_STOPS[index];
-      const body = bodiesRef.current[stop.bodyKey];
-      const c = body ? body.group.position.clone() : new THREE.Vector3(24, 1.5, -14);
-      const r = body ? body.radius : 1.45;
-      const dist = isMobile ? 9.6 : 8.6;
-      const sideOffset = isMobile ? 0 : 4.1;
-      const yOffset = isMobile ? -r * 0.85 : 0;
-
-      return {
-        pos: new THREE.Vector3(c.x + sideOffset, c.y + r * 0.45, c.z + dist),
-        target: new THREE.Vector3(c.x + sideOffset, c.y + yOffset, c.z),
-        focusCenter: c,
-        inspectDist: 8.5,
-      };
-    }
-
     const stop = CELESTIAL_STOPS[index];
     const body = bodiesRef.current[stop.bodyKey];
     const c = body ? body.group.position.clone() : new THREE.Vector3();
     const r = body ? body.radius : 3;
 
+    // Kartu berselang-seling: index genap kartu di Kanan (planet di Kiri), index ganjil kartu di Kiri (planet di Kanan)
     const cardOnRight = index % 2 === 0;
-    const dist = Math.max(r * (isMobile ? 5.2 : 3.9), 7.5);
-    const offsetMag = Math.max(r * 1.45, 3.6);
+
+    // Kalibrasi jarak kamera (dist) dan offset samping (offsetMag) agar setiap planet tampil bebas & tidak tertutup kartu
+    let dist = Math.max(r * 4.0, 8.5);
+    let offsetMag = Math.max(r * 1.6, 4.2);
+
+    if (index === 2) {
+      // Merkurius (planet terkecil)
+      dist = isMobile ? 9.6 : 8.6;
+      offsetMag = 4.2;
+    } else if (index === 3) {
+      // Venus (kartu di kiri -> Venus di kanan)
+      dist = isMobile ? 11.5 : 10.2;
+      offsetMag = 4.4;
+    } else if (index === 4) {
+      // Bumi & Bulan (kartu di kanan -> Bumi di kiri dengan ruang bebas untuk orbit Bulan)
+      dist = isMobile ? 13.0 : 11.4;
+      offsetMag = 5.2;
+    } else if (index === 5) {
+      // Mars (kartu di kiri -> Mars di kanan)
+      dist = isMobile ? 10.8 : 9.5;
+      offsetMag = 4.4;
+    } else if (index === 6) {
+      // Jupiter (raksasa gas terbesar)
+      dist = isMobile ? 29.0 : 25.0;
+      offsetMag = 9.8;
+    } else if (index === 7) {
+      // Saturnus (sistem cincin lebar hingga r=12.6)
+      dist = isMobile ? 32.0 : 27.5;
+      offsetMag = 11.0;
+    } else if (index === 8) {
+      // Uranus (raksasa es bercincin)
+      dist = isMobile ? 18.0 : 15.5;
+      offsetMag = 6.4;
+    } else if (index === 9) {
+      // Neptunus (planet terluar)
+      dist = isMobile ? 16.5 : 14.5;
+      offsetMag = 5.8;
+    }
+
     const sideOffset = isMobile ? 0 : cardOnRight ? offsetMag : -offsetMag;
     const yOffset = isMobile ? -r * 0.85 : 0;
 
@@ -120,7 +140,7 @@ export const ThreeCanvas: React.FC<ThreeCanvasProps> = ({
       pos: new THREE.Vector3(c.x + sideOffset, c.y + r * 0.45, c.z + dist),
       target: new THREE.Vector3(c.x + sideOffset, c.y + yOffset, c.z),
       focusCenter: c,
-      inspectDist: Math.max(r * 3.8, 7.5),
+      inspectDist: Math.max(r * 3.8, 8.0),
     };
   }
 

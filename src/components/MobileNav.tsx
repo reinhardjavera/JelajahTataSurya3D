@@ -3,13 +3,11 @@ import { CELESTIAL_STOPS } from '../data/celestialStops';
 
 interface MobileNavProps {
   activeStopIndex: number;
-  isExploreMode: boolean;
   onSelectPlanet: (index: number) => void;
 }
 
 export const MobileNav: React.FC<MobileNavProps> = ({
   activeStopIndex,
-  isExploreMode,
   onSelectPlanet,
 }) => {
   const itemRefs = useRef<(HTMLAnchorElement | null)[]>([]);
@@ -22,10 +20,8 @@ export const MobileNav: React.FC<MobileNavProps> = ({
   }, [activeStopIndex]);
 
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement>, index: number) => {
-    if (isExploreMode) {
-      e.preventDefault();
-      onSelectPlanet(index);
-    }
+    e.preventDefault();
+    onSelectPlanet(index);
   };
 
   return (

@@ -1117,8 +1117,37 @@
 
       // Kartu berselang-seling: index genap kartu di Kanan (planet di Kiri), index ganjil kartu di Kiri (planet di Kanan)
       const cardOnRight = index % 2 === 0;
-      const dist = Math.max(r * (isMobile ? 5.2 : 3.9), 7.5);
-      const offsetMag = Math.max(r * 1.45, 3.6);
+
+      // Kalibrasi jarak kamera (dist) dan offset samping (offsetMag) agar setiap planet tampil bebas & tidak tertutup kartu
+      let dist = Math.max(r * 4.0, 8.5);
+      let offsetMag = Math.max(r * 1.6, 4.2);
+
+      if (index === 2) {
+        dist = isMobile ? 9.6 : 8.6;
+        offsetMag = 4.2;
+      } else if (index === 3) {
+        dist = isMobile ? 11.5 : 10.2;
+        offsetMag = 4.4;
+      } else if (index === 4) {
+        dist = isMobile ? 13.0 : 11.4;
+        offsetMag = 5.2;
+      } else if (index === 5) {
+        dist = isMobile ? 10.8 : 9.5;
+        offsetMag = 4.4;
+      } else if (index === 6) {
+        dist = isMobile ? 29.0 : 25.0;
+        offsetMag = 9.8;
+      } else if (index === 7) {
+        dist = isMobile ? 32.0 : 27.5;
+        offsetMag = 11.0;
+      } else if (index === 8) {
+        dist = isMobile ? 18.0 : 15.5;
+        offsetMag = 6.4;
+      } else if (index === 9) {
+        dist = isMobile ? 16.5 : 14.5;
+        offsetMag = 5.8;
+      }
+
       const sideOffset = isMobile ? 0 : (cardOnRight ? offsetMag : -offsetMag);
       const yOffset = isMobile ? -r * 0.85 : 0;
 
@@ -1126,7 +1155,7 @@
         pos: new THREE.Vector3(c.x + sideOffset, c.y + r * 0.45, c.z + dist),
         target: new THREE.Vector3(c.x + sideOffset, c.y + yOffset, c.z),
         focusCenter: c,
-        inspectDist: Math.max(r * 3.8, 7.5),
+        inspectDist: Math.max(r * 3.8, 8.0),
       };
     }
 
@@ -1152,9 +1181,15 @@
         <span class="nav-dot w-2 h-2 rounded-full bg-white/25 group-hover:bg-amber-400 transition-all"></span>
       `;
       btn.addEventListener('click', (e) => {
+        e.preventDefault();
         if (isExploreMode) {
-          e.preventDefault();
           switchExplorePlanet(idx);
+        } else {
+          const targetSec = sections[idx];
+          if (targetSec) {
+            const targetScrollY = targetSec.offsetTop + Math.max(0, (targetSec.offsetHeight - window.innerHeight) * 0.5);
+            window.scrollTo({ top: targetScrollY, behavior: 'smooth' });
+          }
         }
       });
       sideNavList.appendChild(btn);
@@ -1166,9 +1201,15 @@
       mBtn.className = 'px-3 py-1.5 rounded-xl text-xs font-medium whitespace-nowrap text-slate-400 transition';
       mBtn.textContent = stop.label;
       mBtn.addEventListener('click', (e) => {
+        e.preventDefault();
         if (isExploreMode) {
-          e.preventDefault();
           switchExplorePlanet(idx);
+        } else {
+          const targetSec = sections[idx];
+          if (targetSec) {
+            const targetScrollY = targetSec.offsetTop + Math.max(0, (targetSec.offsetHeight - window.innerHeight) * 0.5);
+            window.scrollTo({ top: targetScrollY, behavior: 'smooth' });
+          }
         }
       });
       mobileNavList.appendChild(mBtn);

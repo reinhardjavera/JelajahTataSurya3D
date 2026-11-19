@@ -3,20 +3,16 @@ import { CELESTIAL_STOPS } from '../data/celestialStops';
 
 interface SideNavProps {
   activeStopIndex: number;
-  isExploreMode: boolean;
   onSelectPlanet: (index: number) => void;
 }
 
 export const SideNav: React.FC<SideNavProps> = ({
   activeStopIndex,
-  isExploreMode,
   onSelectPlanet,
 }) => {
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement>, index: number) => {
-    if (isExploreMode) {
-      e.preventDefault();
-      onSelectPlanet(index);
-    }
+    e.preventDefault();
+    onSelectPlanet(index);
   };
 
   return (

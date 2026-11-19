@@ -6,6 +6,7 @@ interface HeaderProps {
   scrollPct: number;
   isExploreMode: boolean;
   onToggleExplore: () => void;
+  onSelectPlanet?: (index: number) => void;
 }
 
 export const Header: React.FC<HeaderProps> = ({
@@ -13,6 +14,7 @@ export const Header: React.FC<HeaderProps> = ({
   scrollPct,
   isExploreMode,
   onToggleExplore,
+  onSelectPlanet,
 }) => {
   const currentStop = CELESTIAL_STOPS[activeStopIndex] || CELESTIAL_STOPS[0];
 
@@ -21,6 +23,12 @@ export const Header: React.FC<HeaderProps> = ({
       {/* Brand */}
       <a
         href="#section-overview"
+        onClick={(e) => {
+          if (onSelectPlanet) {
+            e.preventDefault();
+            onSelectPlanet(0);
+          }
+        }}
         className="pointer-events-auto glass-pill px-4 py-2 rounded-full flex items-center gap-2.5 hover:border-white/25 transition"
       >
         <span className="w-2.5 h-2.5 rounded-full bg-amber-400 shadow-[0_0_12px_#fbbf24]"></span>

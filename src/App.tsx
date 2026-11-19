@@ -36,6 +36,25 @@ export const App: React.FC = () => {
     [syncBackgroundScrollToSection]
   );
 
+  const scrollToSection = useCallback(
+    (newIndex: number) => {
+      const total = CELESTIAL_STOPS.length;
+      const wrappedIndex = (newIndex + total) % total;
+      setActiveStopIndex(wrappedIndex);
+
+      if (isExploreMode) {
+        syncBackgroundScrollToSection(wrappedIndex);
+      } else {
+        const targetSec = document.querySelector<HTMLElement>(`section[data-index="${wrappedIndex}"]`);
+        if (!targetSec) return;
+        const targetScrollY =
+          targetSec.offsetTop + Math.max(0, (targetSec.offsetHeight - window.innerHeight) * 0.5);
+        window.scrollTo({ top: targetScrollY, behavior: 'smooth' });
+      }
+    },
+    [isExploreMode, syncBackgroundScrollToSection]
+  );
+
   const handleToggleExplore = useCallback(() => {
     setIsExploreMode((prev) => {
       const nextMode = !prev;
@@ -64,6 +83,7 @@ export const App: React.FC = () => {
         scrollPct={scrollPct}
         isExploreMode={isExploreMode}
         onToggleExplore={handleToggleExplore}
+        onSelectPlanet={scrollToSection}
       />
 
       {/* Explore Mode Bottom Floating Dock */}
@@ -78,15 +98,13 @@ export const App: React.FC = () => {
       {/* Desktop Side Navigation Rail */}
       <SideNav
         activeStopIndex={activeStopIndex}
-        isExploreMode={isExploreMode}
-        onSelectPlanet={switchExplorePlanet}
+        onSelectPlanet={scrollToSection}
       />
 
       {/* Mobile Bottom Navigation Rail */}
       <MobileNav
         activeStopIndex={activeStopIndex}
-        isExploreMode={isExploreMode}
-        onSelectPlanet={switchExplorePlanet}
+        onSelectPlanet={scrollToSection}
       />
 
       {/* Scrollytelling Editorial Overlay */}
@@ -96,6 +114,7 @@ export const App: React.FC = () => {
             key={section.id}
             section={section}
             isActive={section.index === activeStopIndex}
+            onNavigate={scrollToSection}
           />
         ))}
       </main>
