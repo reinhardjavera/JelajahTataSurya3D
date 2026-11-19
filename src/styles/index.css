@@ -101,3 +101,22 @@ body.explore-active #scroll-content {
 .animate-float {
   animation: floatSlow 2.4s ease-in-out infinite;
 }
+
+/* Breathing Nova Glowing Pulse for Brand Dot */
+@keyframes novaGlowPulse {
+  0%, 100% {
+    transform: scale(0.9);
+    opacity: 0.5;
+    box-shadow: 0 0 4px rgba(251, 191, 36, 0.3);
+    background-color: #f59e0b;
+  }
+  50% {
+    transform: scale(1.22);
+    opacity: 1;
+    box-shadow: 0 0 14px #fbbf24, 0 0 28px #f59e0b, 0 0 40px rgba(245, 158, 11, 0.45);
+    background-color: #fef08a;
+  }
+}
+.animate-nova-pulse {
+  animation: novaGlowPulse 3.4s ease-in-out infinite;
+}

@@ -132,6 +132,25 @@
     .animate-float {
       animation: floatSlow 2.4s ease-in-out infinite;
     }
+
+    /* Breathing Nova Glowing Pulse for Brand Dot */
+    @keyframes novaGlowPulse {
+      0%, 100% {
+        transform: scale(0.9);
+        opacity: 0.5;
+        box-shadow: 0 0 4px rgba(251, 191, 36, 0.3);
+        background-color: #f59e0b;
+      }
+      50% {
+        transform: scale(1.22);
+        opacity: 1;
+        box-shadow: 0 0 14px #fbbf24, 0 0 28px #f59e0b, 0 0 40px rgba(245, 158, 11, 0.45);
+        background-color: #fef08a;
+      }
+    }
+    .animate-nova-pulse {
+      animation: novaGlowPulse 3.4s ease-in-out infinite;
+    }
   </style>
 </head>
 <body class="antialiased selection:bg-amber-400/30 selection:text-amber-200">
@@ -143,7 +162,7 @@
   <header class="fixed top-0 left-0 right-0 z-30 px-4 sm:px-8 py-4 flex items-center justify-between pointer-events-none">
     <!-- Brand -->
     <a href="#section-overview" class="pointer-events-auto glass-pill px-4 py-2 rounded-full flex items-center gap-2.5 hover:border-white/25 transition">
-      <span class="w-2.5 h-2.5 rounded-full bg-amber-400 shadow-[0_0_12px_#fbbf24]"></span>
+      <span class="w-2.5 h-2.5 rounded-full bg-amber-400 animate-nova-pulse"></span>
       <span class="font-display font-bold tracking-wider text-sm sm:text-base text-white">ASTRO<span class="text-amber-400">NOVA</span></span>
     </a>
 
@@ -1123,29 +1142,37 @@
       let offsetMag = Math.max(r * 1.6, 4.2);
 
       if (index === 2) {
+        // Merkurius
         dist = isMobile ? 9.6 : 8.6;
         offsetMag = 4.2;
       } else if (index === 3) {
-        dist = isMobile ? 11.5 : 10.2;
-        offsetMag = 4.4;
+        // Venus (kartu di kiri -> Venus di kanan, seimbang di tengah kanan, aman dari navbar)
+        dist = isMobile ? 11.5 : 9.5;
+        offsetMag = 2.2;
       } else if (index === 4) {
+        // Bumi & Bulan
         dist = isMobile ? 13.0 : 11.4;
         offsetMag = 5.2;
       } else if (index === 5) {
-        dist = isMobile ? 10.8 : 9.5;
-        offsetMag = 4.4;
+        // Mars (kartu di kiri -> Mars di kanan, seimbang & aman dari navbar)
+        dist = isMobile ? 10.5 : 8.8;
+        offsetMag = 2.2;
       } else if (index === 6) {
+        // Jupiter
         dist = isMobile ? 29.0 : 25.0;
         offsetMag = 9.8;
       } else if (index === 7) {
-        dist = isMobile ? 32.0 : 27.5;
-        offsetMag = 11.0;
+        // Saturnus (sistem cincin lebar)
+        dist = isMobile ? 32.0 : 28.5;
+        offsetMag = 6.8;
       } else if (index === 8) {
+        // Uranus
         dist = isMobile ? 18.0 : 15.5;
         offsetMag = 6.4;
       } else if (index === 9) {
-        dist = isMobile ? 16.5 : 14.5;
-        offsetMag = 5.8;
+        // Neptunus
+        dist = isMobile ? 16.5 : 13.8;
+        offsetMag = 2.8;
       }
 
       const sideOffset = isMobile ? 0 : (cardOnRight ? offsetMag : -offsetMag);

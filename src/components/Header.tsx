@@ -31,7 +31,7 @@ export const Header: React.FC<HeaderProps> = ({
         }}
         className="pointer-events-auto glass-pill px-4 py-2 rounded-full flex items-center gap-2.5 hover:border-white/25 transition"
       >
-        <span className="w-2.5 h-2.5 rounded-full bg-amber-400 shadow-[0_0_12px_#fbbf24]"></span>
+        <span className="w-2.5 h-2.5 rounded-full bg-amber-400 animate-nova-pulse"></span>
         <span className="font-display font-bold tracking-wider text-sm sm:text-base text-white">
           ASTRO<span className="text-amber-400">NOVA</span>
         </span>

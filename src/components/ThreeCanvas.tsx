@@ -100,37 +100,37 @@ export const ThreeCanvas: React.FC<ThreeCanvasProps> = ({
     let offsetMag = Math.max(r * 1.6, 4.2);
 
     if (index === 2) {
-      // Merkurius (planet terkecil)
+      // Merkurius (planet terkecil, kartu di kanan -> Merkurius di kiri)
       dist = isMobile ? 9.6 : 8.6;
       offsetMag = 4.2;
     } else if (index === 3) {
-      // Venus (kartu di kiri -> Venus di kanan)
-      dist = isMobile ? 11.5 : 10.2;
-      offsetMag = 4.4;
+      // Venus (kartu di kiri -> Venus di kanan, seimbang di tengah kanan, aman dari navbar)
+      dist = isMobile ? 11.5 : 9.5;
+      offsetMag = 2.2;
     } else if (index === 4) {
       // Bumi & Bulan (kartu di kanan -> Bumi di kiri dengan ruang bebas untuk orbit Bulan)
       dist = isMobile ? 13.0 : 11.4;
       offsetMag = 5.2;
     } else if (index === 5) {
-      // Mars (kartu di kiri -> Mars di kanan)
-      dist = isMobile ? 10.8 : 9.5;
-      offsetMag = 4.4;
+      // Mars (kartu di kiri -> Mars di kanan, seimbang & aman dari navbar)
+      dist = isMobile ? 10.5 : 8.8;
+      offsetMag = 2.2;
     } else if (index === 6) {
-      // Jupiter (raksasa gas terbesar)
+      // Jupiter (raksasa gas terbesar, kartu di kanan -> Jupiter di kiri)
       dist = isMobile ? 29.0 : 25.0;
       offsetMag = 9.8;
     } else if (index === 7) {
-      // Saturnus (sistem cincin lebar hingga r=12.6)
-      dist = isMobile ? 32.0 : 27.5;
-      offsetMag = 11.0;
+      // Saturnus (sistem cincin lebar hingga r=12.6, kartu di kiri -> Saturnus di kanan)
+      dist = isMobile ? 32.0 : 28.5;
+      offsetMag = 6.8;
     } else if (index === 8) {
-      // Uranus (raksasa es bercincin)
+      // Uranus (raksasa es bercincin, kartu di kanan -> Uranus di kiri)
       dist = isMobile ? 18.0 : 15.5;
       offsetMag = 6.4;
     } else if (index === 9) {
-      // Neptunus (planet terluar)
-      dist = isMobile ? 16.5 : 14.5;
-      offsetMag = 5.8;
+      // Neptunus (planet terluar, kartu di kiri -> Neptunus di kanan aman dari navbar)
+      dist = isMobile ? 16.5 : 13.8;
+      offsetMag = 2.8;
     }
 
     const sideOffset = isMobile ? 0 : cardOnRight ? offsetMag : -offsetMag;
