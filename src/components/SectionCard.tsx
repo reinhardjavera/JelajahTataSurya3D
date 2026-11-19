@@ -79,12 +79,12 @@ export const SectionCard: React.FC<SectionCardProps> = ({ section, isActive, onN
       data-index={section.index}
       className={`flex items-center ${
         isRightAligned
-          ? 'justify-end px-5 sm:pl-8 sm:pr-28 lg:pl-14 lg:pr-36'
+          ? 'justify-end px-5 sm:pl-8 sm:pr-44 md:pr-48 lg:pl-14 lg:pr-56 xl:pr-60'
           : 'justify-start px-5 sm:pl-10 sm:pr-8 lg:pl-14 lg:pr-10'
       } ${section.minHeightClass}`}
     >
       <div
-        className={`max-w-[450px] lg:max-w-[475px] w-full planet-card glass-card rounded-3xl p-7 sm:p-9 ${
+        className={`max-w-[440px] lg:max-w-[465px] w-full planet-card glass-card rounded-3xl p-7 sm:p-9 ${
           isActive ? 'is-active' : ''
         }`}
       >

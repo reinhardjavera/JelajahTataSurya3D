@@ -103,10 +103,10 @@ export const ThreeCanvas: React.FC<ThreeCanvasProps> = ({
     let tgtOffset = 2.0;
 
     if (index === 2) {
-      // Merkurius (kartu di kanan -> Merkurius di kiri)
-      dist = isMobile ? 9.5 : 8.8;
-      posOffset = isMobile ? 0 : 2.18;
-      tgtOffset = isMobile ? 0 : 2.08;
+      // Merkurius (kartu di kanan -> Merkurius di kiri, posisi seimbang & lega dari kartu)
+      dist = isMobile ? 9.5 : 8.2;
+      posOffset = isMobile ? 0 : 2.45;
+      tgtOffset = isMobile ? 0 : 2.38;
     } else if (index === 3) {
       // Venus (kartu di kiri -> Venus di kanan, seimbang di tengah area pandang kanan)
       dist = isMobile ? 12.0 : 13.8;
@@ -114,9 +114,9 @@ export const ThreeCanvas: React.FC<ThreeCanvasProps> = ({
       tgtOffset = isMobile ? 0 : -3.35;
     } else if (index === 4) {
       // Bumi & Bulan (kartu di kanan -> Bumi di kiri dengan ruang bebas untuk orbit Bulan)
-      dist = isMobile ? 12.5 : 12.0;
-      posOffset = isMobile ? 0 : 3.15;
-      tgtOffset = isMobile ? 0 : 2.95;
+      dist = isMobile ? 12.5 : 14.5;
+      posOffset = isMobile ? 0 : 4.5;
+      tgtOffset = isMobile ? 0 : 4.4;
     } else if (index === 5) {
       // Mars (kartu di kiri -> Mars di kanan, jarak lega dari kotak & aman dari navbar)
       dist = isMobile ? 11.0 : 13.0;
@@ -124,9 +124,9 @@ export const ThreeCanvas: React.FC<ThreeCanvasProps> = ({
       tgtOffset = isMobile ? 0 : -3.2;
     } else if (index === 6) {
       // Jupiter (raksasa gas terbesar, kartu di kanan -> Jupiter di kiri)
-      dist = isMobile ? 30.0 : 33.8;
-      posOffset = isMobile ? 0 : 8.65;
-      tgtOffset = isMobile ? 0 : 8.25;
+      dist = isMobile ? 30.0 : 40.0;
+      posOffset = isMobile ? 0 : 12.5;
+      tgtOffset = isMobile ? 0 : 12.2;
     } else if (index === 7) {
       // Saturnus (sistem cincin lebar hingga r=12.6, kartu di kiri -> Saturnus di kanan)
       dist = isMobile ? 32.0 : 30.2;
@@ -134,9 +134,9 @@ export const ThreeCanvas: React.FC<ThreeCanvasProps> = ({
       tgtOffset = isMobile ? 0 : -7.4;
     } else if (index === 8) {
       // Uranus (raksasa es bercincin, kartu di kanan -> Uranus di kiri)
-      dist = isMobile ? 18.0 : 19.4;
-      posOffset = isMobile ? 0 : 5.0;
-      tgtOffset = isMobile ? 0 : 4.75;
+      dist = isMobile ? 18.0 : 23.0;
+      posOffset = isMobile ? 0 : 7.2;
+      tgtOffset = isMobile ? 0 : 7.0;
     } else if (index === 9) {
       // Neptunus (planet terluar, kartu di kiri -> Neptunus di kanan)
       dist = isMobile ? 16.5 : 17.6;
